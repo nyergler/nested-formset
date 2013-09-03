@@ -27,7 +27,8 @@ class BaseNestedFormset(BaseInlineFormSet):
         if self.is_bound:
             # look at any nested formsets, as well
             for form in self.forms:
-                result = result and form.nested.is_valid()
+                if not self._should_delete_form(form):
+                    result = result and form.nested.is_valid()
 
         return result
 
@@ -35,8 +36,9 @@ class BaseNestedFormset(BaseInlineFormSet):
 
         result = super(BaseNestedFormset, self).save(commit=commit)
 
-        for form in self:
-            form.nested.save(commit=commit)
+        for form in self.forms:
+            if not self._should_delete_form(form):
+                form.nested.save(commit=commit)
 
         return result
 

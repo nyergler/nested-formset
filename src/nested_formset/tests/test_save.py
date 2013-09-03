@@ -1,4 +1,4 @@
-from unittest import TestCase
+from django.test import TestCase
 
 from django.forms.models import BaseInlineFormSet
 from nested_formset.tests import models as test_models
@@ -184,3 +184,77 @@ class CreationTests(TestCase):
             building.tenant_set.all()[0].name,
             'John Doe',
         )
+
+
+class DeleteTests(TestCase):
+
+    def setUp(self):
+
+        self.formset_class = nested_formset_factory(
+            test_models.Block,
+            test_models.Building,
+            test_models.Tenant,
+        )
+
+        self.block = test_models.Block.objects.create()
+        self.building = test_models.Building.objects.create(
+            block=self.block,
+            address='829 S Mulberry St.',
+        )
+        self.tenant = test_models.Tenant.objects.create(
+            building=self.building,
+            name='John Doe',
+            unit='42',
+        )
+
+    def test_delete_tenant(self):
+
+        self.assertEqual(self.building.tenant_set.count(), 1)
+
+        unbound_form = self.formset_class(instance=self.block)
+        form_data = get_form_data(unbound_form)
+
+        form_data.update({
+            'building_set-0-tenant_set-0-DELETE': True,
+        })
+
+        form = self.formset_class(
+            instance=self.block,
+            data=form_data,
+        )
+
+        self.assertTrue(form.is_valid())
+        form.save()
+
+        # the building is intact...
+        self.assertEqual(
+            test_models.Block.objects.get(id=self.block.id).building_set.count(),
+            1)
+
+        # ... and the tenant is deleted
+        self.assertEqual(self.building.tenant_set.count(), 0)
+
+    def test_delete_building(self):
+
+        self.assertEqual(test_models.Tenant.objects.all().count(), 1)
+        self.assertEqual(self.block.building_set.count(), 1)
+        self.assertEqual(self.building.tenant_set.count(), 1)
+
+        unbound_form = self.formset_class(instance=self.block)
+        form_data = get_form_data(unbound_form)
+
+        form_data.update({
+            'building_set-0-DELETE': True,
+        })
+
+        form = self.formset_class(
+            instance=self.block,
+            data=form_data,
+        )
+
+        self.assertTrue(form.is_valid())
+        form.save()
+
+        self.assertEqual(self.block.building_set.count(), 0)
+
+        self.assertEqual(test_models.Tenant.objects.all().count(), 0)
