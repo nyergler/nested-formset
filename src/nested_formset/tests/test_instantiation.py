@@ -39,3 +39,19 @@ class InstantiationTests(TestCase):
         self.assertTrue(
             isinstance(formset.forms[0].nested, BaseInlineFormSet)
         )
+
+    def test_nested_has_derived_prefix(self):
+
+        block = test_models.Block.objects.create()
+        test_models.Building.objects.create(block=block)
+
+        formset = self.formset_class(instance=block)
+
+        # first level forms have a "normal" formset prefix
+        self.assertEqual(formset.forms[0].prefix, 'building_set-0')
+
+        # second level inherit from their parent
+        self.assertEqual(
+            formset.forms[0].nested.forms[0].prefix,
+            'building_set-0-tenant_set-0',
+        )

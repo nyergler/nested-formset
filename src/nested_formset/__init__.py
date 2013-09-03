@@ -13,6 +13,10 @@ class BaseNestedFormset(BaseInlineFormSet):
 
         form.nested = self.nested_formset_class(
             instance=form.instance,
+            prefix='%s-%s' % (
+                form.prefix,
+                self.nested_formset_class.get_default_prefix(),
+            ),
         )
 
 
