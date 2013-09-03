@@ -19,7 +19,7 @@ class EditTests(TestCase):
 
         self.block = test_models.Block.objects.create()
 
-    def test_edit_block(self):
+    def test_edit_building(self):
 
         building = test_models.Building.objects.create(
             block=self.block,
@@ -83,3 +83,37 @@ class EditTests(TestCase):
             test_models.Tenant.objects.get(id=tenant.id).building,
             building,
         )
+
+
+class CreationTests(TestCase):
+
+    def setUp(self):
+
+        self.formset_class = nested_formset_factory(
+            test_models.Block,
+            test_models.Building,
+            test_models.Tenant,
+        )
+
+        self.block = test_models.Block.objects.create()
+
+    def test_create_building(self):
+
+        unbound_form = self.formset_class(instance=self.block)
+        self.assertEqual(unbound_form.initial_forms, [])
+
+        form_data = get_form_data(unbound_form)
+
+        form_data.update({
+            'building_set-0-address': '405 S. Wayne St.',
+        })
+
+        form = self.formset_class(
+            instance=self.block,
+            data=form_data,
+        )
+
+        self.assertTrue(form.is_valid())
+        form.save()
+
+        self.assertEqual(self.block.building_set.all().count(), 1)
