@@ -45,3 +45,41 @@ class EditTests(TestCase):
             test_models.Building.objects.get(id=building.id).address,
             '405 S. Wayne St.',
         )
+
+    def test_edit_tenant(self):
+
+        building = test_models.Building.objects.create(
+            block=self.block,
+            address='829 S Mulberry St.',
+        )
+        tenant = test_models.Tenant.objects.create(
+            building=building,
+            name='John Doe',
+            unit='42',
+        )
+
+        form_data = get_form_data(
+            self.formset_class(instance=self.block)
+        )
+
+        form_data.update({
+            'building_set-0-address': '405 S. Wayne St.',
+            'building_set-0-tenant_set-0-unit': '42A',
+        })
+
+        form = self.formset_class(
+            instance=self.block,
+            data=form_data,
+        )
+
+        self.assertTrue(form.is_valid())
+        form.save()
+
+        self.assertEqual(
+            test_models.Tenant.objects.get(id=tenant.id).unit,
+            '42A',
+        )
+        self.assertEqual(
+            test_models.Tenant.objects.get(id=tenant.id).building,
+            building,
+        )

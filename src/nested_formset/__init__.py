@@ -31,6 +31,15 @@ class BaseNestedFormset(BaseInlineFormSet):
 
         return result
 
+    def save(self, commit=True):
+
+        result = super(BaseNestedFormset, self).save(commit=commit)
+
+        for form in self:
+            form.nested.save(commit=commit)
+
+        return result
+
 
 def nested_formset_factory(parent_model, child_model, grandchild_model):
 
