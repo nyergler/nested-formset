@@ -28,3 +28,14 @@ class InstantiationTests(TestCase):
         self.assertEqual(
             len(formset.forms), 10 + formset.extra
         )
+
+    def test_child_form_contains_nested_formset(self):
+
+        block = test_models.Block.objects.create()
+        test_models.Building.objects.create(block=block)
+
+        formset = self.formset_class(instance=block)
+
+        self.assertTrue(
+            isinstance(formset.forms[0].nested, BaseInlineFormSet)
+        )
