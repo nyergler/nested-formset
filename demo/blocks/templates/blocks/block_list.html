@@ -1,0 +1,10 @@
+<h1>Blocks</h1>
+
+<ul>
+{% for block in block_list %}
+  <li><a href="{% url 'buildings-edit' pk=block.id %}">
+      {{ block.description }}</a></li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'blocks-new' %}">new block</a>

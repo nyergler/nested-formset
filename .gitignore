@@ -6,3 +6,5 @@
 *.pyc
 *.egg-info
 .Python
+/dist/
+/demo/blocks.db

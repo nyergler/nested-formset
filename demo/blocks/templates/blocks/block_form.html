@@ -1,0 +1,8 @@
+<h1>New Block</h1>
+
+<form action="{% url 'blocks-new' %}" method="POST">
+{% csrf_token %}
+{{ form }}
+<input type="submit" value="Save" />
+
+</form>

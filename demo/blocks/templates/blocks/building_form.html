@@ -1,0 +1,18 @@
+<h1>Edit Buildings</h1>
+
+<form action="{% url 'buildings-edit' pk=block.id %}" method="POST">
+{% csrf_token %}
+{{ form.management_form }}
+{% for building in form %}
+{{ building.as_p }}
+
+{{ building.nested.management_form }}
+{% for tenant in building.nested %}
+{{ tenant.as_p }}
+{% endfor %}
+
+{% endfor %}
+
+<input type="submit" value="Save" />
+
+</form>
