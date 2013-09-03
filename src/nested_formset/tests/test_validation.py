@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from django.forms.models import BaseInlineFormSet
 from nested_formset.tests import models as test_models
-from rebar.testing import flatten_to_dict
+from nested_formset.tests.util import get_form_data
 
 from nested_formset import nested_formset_factory
 
@@ -21,7 +21,7 @@ class ValidationTests(TestCase):
 
         block = test_models.Block.objects.create()
 
-        form_data = flatten_to_dict(self.formset_class(instance=block))
+        form_data = get_form_data(self.formset_class(instance=block))
         form_data.update({
             'building_set-0-address': '123 Main St',
             'building_set-0-tenant_set-0-name': 'John Doe',
