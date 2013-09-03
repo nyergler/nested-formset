@@ -18,10 +18,12 @@ class above.
 
 """
 import os.path
+from django import VERSION
 
-BASE_PATH = os.path.dirname(__file__)
-TEST_DISCOVERY_ROOT = os.path.join(BASE_PATH, "tests")
-TEST_RUNNER = "discover_runner.DiscoverRunner"
+if VERSION < (1, 6):
+    BASE_PATH = os.path.dirname(__file__)
+    TEST_DISCOVERY_ROOT = os.path.join(BASE_PATH, "tests")
+    TEST_RUNNER = "discover_runner.DiscoverRunner"
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

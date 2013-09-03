@@ -3,10 +3,11 @@ python:
   - "2.7"
 
 env:
-  - DJANGO_VERSION=1.5.2
+  - DJANGO_SPEC=Django==1.5.2
+  - DJANGO_SPEC=https://www.djangoproject.com/download/1.6b2/tarball/\#egg\=Django
 
 install:
-  - pip install Django==$DJANGO_VERSION
+  - pip install --use-mirrors $DJANGO_SPEC
   - python setup.py install
 
 script:
