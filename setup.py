@@ -26,5 +26,6 @@ setup(name='nested_formset',
       install_requires=[
           'Django==1.5.1',
           'django-discover-runner',
+          'rebar',
       ],
 )

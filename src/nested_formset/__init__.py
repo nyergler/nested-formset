@@ -19,6 +19,17 @@ class BaseNestedFormset(BaseInlineFormSet):
             ),
         )
 
+    def is_valid(self):
+
+        result = super(BaseNestedFormset, self).is_valid()
+
+        if self.is_bound:
+            # look at any nested formsets, as well
+            for form in self.forms:
+                result = result and form.nested.is_valid()
+
+        return result
+
 
 def nested_formset_factory(parent_model, child_model, grandchild_model):
 

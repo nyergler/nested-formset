@@ -11,4 +11,7 @@ class Building(models.Model):
 class Tenant(models.Model):
     building = models.ForeignKey(Building)
     name = models.CharField(max_length=255)
-    unit = models.CharField(max_length=255)
+    unit = models.CharField(
+        blank=False,
+        max_length=255,
+    )
