@@ -23,7 +23,7 @@ setup(name='nested_formset',
       include_package_data=True,
       zip_safe=True,
       install_requires=[
-          'Django==1.5.1',
+          'Django',
           'django-discover-runner',
           'rebar',
       ],
