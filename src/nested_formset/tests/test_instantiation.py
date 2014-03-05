@@ -55,3 +55,13 @@ class InstantiationTests(TestCase):
             formset.forms[0].nested.forms[0].prefix,
             'building_set-0-tenant_set-0',
         )
+
+    def test_empty_form_is_not_bound(self):
+
+        block = test_models.Block.objects.create()
+        test_models.Building.objects.create(block=block)
+
+        formset = self.formset_class(instance=block)
+
+        self.assertFalse(formset.empty_form.is_bound)
+        self.assertFalse(formset.forms[0].nested.empty_form.is_bound)
