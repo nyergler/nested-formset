@@ -21,7 +21,7 @@ setup(name='nested_formset',
       packages=find_packages('src'),
       package_dir={'': 'src'},
       include_package_data=True,
-      zip_safe=True,
+      zip_safe=False,
       install_requires=[
           'Django>=1.5',
           'django-discover-runner',
