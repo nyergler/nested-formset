@@ -13,7 +13,7 @@ class BaseNestedFormset(BaseInlineFormSet):
 
         form.nested = self.nested_formset_class(
             instance=form.instance,
-            data=form.data if self.is_bound else None,
+            data=form.data if form.is_bound else None,
             prefix='%s-%s' % (
                 form.prefix,
                 self.nested_formset_class.get_default_prefix(),
