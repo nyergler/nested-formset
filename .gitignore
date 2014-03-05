@@ -8,3 +8,4 @@
 .Python
 /dist/
 /demo/blocks.db
+/.tox/
