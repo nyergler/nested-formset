@@ -1,19 +1,20 @@
 from unittest import TestCase
 
-from django.forms.models import BaseInlineFormSet
+from django.forms.models import BaseInlineFormSet, inlineformset_factory
 from nested_formset.tests import models as test_models
 
-from nested_formset import nested_formset_factory
+from nested_formset import nestedformset_factory
 
 
 class InstantiationTests(TestCase):
 
     def setUp(self):
 
-        self.formset_class = nested_formset_factory(
+        child_formset = inlineformset_factory(test_models.Building, test_models.Tenant)
+        self.formset_class = nestedformset_factory(
             test_models.Block,
             test_models.Building,
-            test_models.Tenant,
+            nested_formset=child_formset,
         )
 
     def test_takes_parent_discovers_children(self):
