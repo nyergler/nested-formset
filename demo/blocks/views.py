@@ -1,11 +1,12 @@
 from django.core.urlresolvers import reverse
+from django.forms.models import inlineformset_factory
 from django.views.generic import (
     ListView,
     CreateView,
     UpdateView,
 )
 
-from nested_formset import nested_formset_factory
+from nested_formset import nestedformset_factory
 
 from blocks import models
 
@@ -32,10 +33,13 @@ class EditBuildingsView(UpdateView):
 
     def get_form_class(self):
 
-        return nested_formset_factory(
+        return nestedformset_factory(
             models.Block,
             models.Building,
-            models.Tenant,
+            nested_formset=inlineformset_factory(
+                models.Building,
+                models.Tenant
+            )
         )
 
     def get_success_url(self):

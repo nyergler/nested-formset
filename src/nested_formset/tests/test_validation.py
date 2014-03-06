@@ -1,20 +1,21 @@
 from unittest import TestCase
 
-from django.forms.models import BaseInlineFormSet
+from django.forms.models import inlineformset_factory
 from nested_formset.tests import models as test_models
 from nested_formset.tests.util import get_form_data
 
-from nested_formset import nested_formset_factory
+from nested_formset import nestedformset_factory
 
 
 class ValidationTests(TestCase):
 
     def setUp(self):
 
-        self.formset_class = nested_formset_factory(
+        child_formset = inlineformset_factory(test_models.Building, test_models.Tenant)
+        self.formset_class = nestedformset_factory(
             test_models.Block,
             test_models.Building,
-            test_models.Tenant,
+            nested_formset=child_formset,
         )
 
     def test_is_valid_calls_is_valid_on_nested(self):

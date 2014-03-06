@@ -1,6 +1,9 @@
+import django
+
 from django.forms.models import (
     BaseInlineFormSet,
     inlineformset_factory,
+    ModelForm,
 )
 
 
@@ -43,17 +46,35 @@ class BaseNestedFormset(BaseInlineFormSet):
         return result
 
 
-def nested_formset_factory(parent_model, child_model, grandchild_model):
+def nestedformset_factory(parent_model, model, nested_formset, form=ModelForm,
+                          formset=BaseNestedFormset, fk_name=None, fields=None,
+                          exclude=None, extra=3, can_order=False,
+                          can_delete=True, max_num=None,
+                          formfield_callback=None, widgets=None,
+                          validate_max=False, localized_fields=None,
+                          labels=None, help_texts=None, error_messages=None):
+    kwargs = {
+        'form': form,
+        'formfield_callback': formfield_callback,
+        'formset': formset,
+        'extra': extra,
+        'can_delete': can_delete,
+        'can_order': can_order,
+        'fields': fields,
+        'exclude': exclude,
+        'max_num': max_num,
+    }
 
-    parent_child = inlineformset_factory(
-        parent_model,
-        child_model,
-        formset=BaseNestedFormset,
-    )
+    if django.VERSION >= (1, 6):
+        kwargs.update({
+            'widgets': widgets,
+            'validate_max': validate_max,
+            'localized_fields': localized_fields,
+            'labels': labels,
+            'help_texts': help_texts,
+            'error_messages': error_messages,
+        })
 
-    parent_child.nested_formset_class = inlineformset_factory(
-        child_model,
-        grandchild_model,
-    )
-
-    return parent_child
+    NestedFormSet = inlineformset_factory(parent_model, model, **kwargs)
+    NestedFormSet.nested_formset_class = nested_formset
+    return NestedFormSet

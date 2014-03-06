@@ -1,20 +1,21 @@
 from django.test import TestCase
 
-from django.forms.models import BaseInlineFormSet
+from django.forms.models import inlineformset_factory
 from nested_formset.tests import models as test_models
 from nested_formset.tests.util import get_form_data
 
-from nested_formset import nested_formset_factory
+from nested_formset import nestedformset_factory
 
 
 class EditTests(TestCase):
 
     def setUp(self):
 
-        self.formset_class = nested_formset_factory(
+        child_formset = inlineformset_factory(test_models.Building, test_models.Tenant)
+        self.formset_class = nestedformset_factory(
             test_models.Block,
             test_models.Building,
-            test_models.Tenant,
+            nested_formset=child_formset,
         )
 
         self.block = test_models.Block.objects.create()
@@ -89,10 +90,11 @@ class CreationTests(TestCase):
 
     def setUp(self):
 
-        self.formset_class = nested_formset_factory(
+        child_formset = inlineformset_factory(test_models.Building, test_models.Tenant)
+        self.formset_class = nestedformset_factory(
             test_models.Block,
             test_models.Building,
-            test_models.Tenant,
+            nested_formset=child_formset,
         )
 
         self.block = test_models.Block.objects.create()
@@ -190,10 +192,11 @@ class DeleteTests(TestCase):
 
     def setUp(self):
 
-        self.formset_class = nested_formset_factory(
+        child_formset = inlineformset_factory(test_models.Building, test_models.Tenant)
+        self.formset_class = nestedformset_factory(
             test_models.Block,
             test_models.Building,
-            test_models.Tenant,
+            nested_formset=child_formset,
         )
 
         self.block = test_models.Block.objects.create()
