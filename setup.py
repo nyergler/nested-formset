@@ -8,9 +8,11 @@ README = open(os.path.join(here, 'README.rst')).read()
 version = '0.1'
 
 
-setup(name='nested_formset',
+setup(name='django-nested-formset',
+      description='Nest Django formsets for multi-level hierarchical editing',
+      author='Nathan Yergler',
+      author_email='nathan@yergler.net',
       version=version,
-      description="",
       long_description=README,
       classifiers=[
           'License :: OSI Approved :: BSD License',
