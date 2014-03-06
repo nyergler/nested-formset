@@ -20,6 +20,10 @@ management tool. For example::
 
   $ pip install django-nested-formset
 
+You can also install the `latest development version`_\ ::
+
+  $ pip install django-nested-formset==dev
+
 After installing the package, you can use the
 ``nestedformset_factory`` function to create your formset class.
 
@@ -48,6 +52,7 @@ License
 
 This package is released under a BSD style license. See LICENSE for details.
 
+.. _`latest development version`: https://github.com/nyergler/nested-formset/tarball/master#egg=django_nested_formset-dev
 .. _Formsets: https://docs.djangoproject.com/en/1.5/topics/forms/formsets/
 .. _Form: https://docs.djangoproject.com/en/1.5/topics/forms/
 .. _`blog post`: http://yergler.net/blog/2009/09/27/nested-formsets-with-django/
