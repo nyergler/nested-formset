@@ -47,6 +47,13 @@ virtualenv::
 
    $ python ./bin/django-admin.py test --settings=nested_formset.test_settings nested_formset
 
+See Also
+========
+
+* `Django Formset documentation`_
+* `jquery.django-formset`_ Dynamic creation of formsets from the empty
+  formset.
+
 License
 =======
 
@@ -54,6 +61,8 @@ This package is released under a BSD style license. See LICENSE for details.
 
 .. _`latest development version`: https://github.com/nyergler/nested-formset/tarball/master#egg=django_nested_formset-dev
 .. _Formsets: https://docs.djangoproject.com/en/1.5/topics/forms/formsets/
+.. _`Django Formset documentation`: Formsets_
 .. _Form: https://docs.djangoproject.com/en/1.5/topics/forms/
 .. _`blog post`: http://yergler.net/blog/2009/09/27/nested-formsets-with-django/
 .. _`follow-up blog post`: http://yergler.net/blog/2013/09/03/nested-formsets-redux/
+.. _`jquery.django-formset`: https://github.com/mbertheau/jquery.django-formset
