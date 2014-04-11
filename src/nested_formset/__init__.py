@@ -75,6 +75,17 @@ def nestedformset_factory(parent_model, model, nested_formset, form=ModelForm,
             'error_messages': error_messages,
         })
 
-    NestedFormSet = inlineformset_factory(parent_model, model, **kwargs)
+        if kwargs['fields'] is None:
+            kwargs['fields'] = [
+                field.name
+                for field in model._meta.local_fields
+            ]
+
+
+    NestedFormSet = inlineformset_factory(
+        parent_model,
+        model,
+        **kwargs
+    )
     NestedFormSet.nested_formset_class = nested_formset
     return NestedFormSet

@@ -10,7 +10,14 @@ class InstantiationTests(TestCase):
 
     def setUp(self):
 
-        child_formset = inlineformset_factory(test_models.Building, test_models.Tenant)
+        child_formset = inlineformset_factory(
+            test_models.Building,
+            test_models.Tenant,
+            fields=(
+                'name',
+                'unit',
+            ),
+        )
         self.formset_class = nestedformset_factory(
             test_models.Block,
             test_models.Building,
