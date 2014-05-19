@@ -2,6 +2,7 @@ from unittest import TestCase
 
 from django.forms.models import BaseInlineFormSet, inlineformset_factory
 from nested_formset.tests import models as test_models
+from nested_formset.tests.util import get_form_data
 
 from nested_formset import nestedformset_factory
 
@@ -73,3 +74,18 @@ class InstantiationTests(TestCase):
 
         self.assertFalse(formset.empty_form.is_bound)
         self.assertFalse(formset.forms[0].nested.empty_form.is_bound)
+
+    def test_files_passed_to_nested_forms(self):
+
+        block = test_models.Block.objects.create()
+        test_models.Building.objects.create(block=block)
+
+        form_data = get_form_data(self.formset_class(instance=block))
+
+        formset = self.formset_class(
+            instance=block,
+            data=form_data,
+            files={1: 2},
+        )
+
+        self.assertEqual(formset[0].nested.files, {1: 2})
