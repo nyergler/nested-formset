@@ -45,6 +45,10 @@ class BaseNestedFormset(BaseInlineFormSet):
 
         return result
 
+    @property
+    def media(self):
+        return self.empty_form.media + self.empty_form.nested.media
+
 
 def nestedformset_factory(parent_model, model, nested_formset, form=ModelForm,
                           formset=BaseNestedFormset, fk_name=None, fields=None,
@@ -81,11 +85,11 @@ def nestedformset_factory(parent_model, model, nested_formset, form=ModelForm,
                 for field in model._meta.local_fields
             ]
 
-
     NestedFormSet = inlineformset_factory(
         parent_model,
         model,
         **kwargs
     )
     NestedFormSet.nested_formset_class = nested_formset
+
     return NestedFormSet
