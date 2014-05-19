@@ -42,10 +42,9 @@ and creating a virtualenv.
 
 The last line will install the installation and test dependencies.
 
-To run the unit test suite, run the following from within the
-virtualenv::
+To run the unit test suite, run the following::
 
-   $ python ./bin/django-admin.py test --settings=nested_formset.test_settings nested_formset
+   $ python setup.py test
 
 See Also
 ========

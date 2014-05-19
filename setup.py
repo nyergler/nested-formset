@@ -35,4 +35,5 @@ setup(name='django-nested-formset',
           'django-discover-runner',
           'rebar',
       ],
+      test_suite='nested_formset.tests.run_tests',
 )
