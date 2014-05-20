@@ -7,7 +7,20 @@ from nested_formset.tests import models as test_models
 from nested_formset import nestedformset_factory
 
 
+class StyledTextInput(forms.TextInput):
+
+    class Media:
+        css = {
+            'all': ('widget.css',),
+        }
+
+
 class TenantForm(forms.ModelForm):
+
+    name = forms.CharField(
+        max_length=50,
+        widget=StyledTextInput,
+    )
 
     class Meta:
         model = test_models.Tenant
@@ -68,3 +81,12 @@ class PropertyTests(TestCase):
         )
 
         self.assertIn('layout.css', form.media._css['all'])
+
+    def test_widget_media_rolls_up(self):
+
+        block = test_models.Block.objects.create()
+        form = self.formset_class(
+            instance=block,
+        )
+
+        self.assertIn('widget.css', form.media._css['all'])
