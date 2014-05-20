@@ -1,6 +1,15 @@
 News
 ====
 
+0.1.2
+-----
+
+*Release date: 20 May 2014*
+
+* Support for passing files to bound nested formsets
+* The media property now rolls up all nested media
+* Compatibility with Django 1.7.
+
 0.1.1
 -----
 
