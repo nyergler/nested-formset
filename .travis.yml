@@ -13,4 +13,4 @@ install:
   - python setup.py install
 
 script:
-  - django-admin.py test --settings=nested_formset.test_settings nested_formset
+  - python setup.py test
