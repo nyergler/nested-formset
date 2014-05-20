@@ -3,6 +3,7 @@ import sys, os
 
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.rst')).read()
+NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 
 version = '0.1.1'
@@ -13,7 +14,7 @@ setup(name='django-nested-formset',
       author='Nathan Yergler',
       author_email='nathan@yergler.net',
       version=version,
-      long_description=README,
+      long_description=README + '\n\n' + NEWS,
       classifiers=[
           'License :: OSI Approved :: BSD License',
           'Development Status :: 4 - Beta',
