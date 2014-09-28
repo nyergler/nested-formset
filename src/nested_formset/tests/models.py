@@ -6,7 +6,7 @@ class Block(models.Model):
 
 class Building(models.Model):
     block = models.ForeignKey(Block)
-    address = models.CharField(max_length=255)
+    address = models.CharField(max_length=255, blank=True)
 
 class Tenant(models.Model):
     building = models.ForeignKey(Building)

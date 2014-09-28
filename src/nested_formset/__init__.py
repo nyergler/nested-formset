@@ -51,13 +51,25 @@ class BaseNestedFormset(BaseInlineFormSet):
         return self.empty_form.media + self.empty_form.nested.media
 
 
-def nestedformset_factory(parent_model, model, nested_formset, form=ModelForm,
-                          formset=BaseNestedFormset, fk_name=None, fields=None,
-                          exclude=None, extra=3, can_order=False,
-                          can_delete=True, max_num=None,
-                          formfield_callback=None, widgets=None,
-                          validate_max=False, localized_fields=None,
-                          labels=None, help_texts=None, error_messages=None):
+class BaseNestedModelForm(ModelForm):
+
+    def has_changed(self):
+
+        return (
+            super(BaseNestedModelForm, self).has_changed() or
+            self.nested.has_changed()
+        )
+
+
+def nestedformset_factory(parent_model, model, nested_formset,
+                          form=BaseNestedModelForm,
+                          formset=BaseNestedFormset, fk_name=None,
+                          fields=None, exclude=None, extra=3,
+                          can_order=False, can_delete=True,
+                          max_num=None, formfield_callback=None,
+                          widgets=None, validate_max=False,
+                          localized_fields=None, labels=None,
+                          help_texts=None, error_messages=None):
     kwargs = {
         'form': form,
         'formfield_callback': formfield_callback,
