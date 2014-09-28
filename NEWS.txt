@@ -1,6 +1,14 @@
 News
 ====
 
+0.1.3
+-----
+
+*Release date: 28 September 2014*
+
+* Test against Django 1.7-final
+* `has_changed` now takes into account all nested forms.
+
 0.1.2
 -----
 
