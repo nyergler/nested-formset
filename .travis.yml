@@ -4,8 +4,9 @@ python:
   - "3.4"
 
 env:
-  - DJANGO_SPEC=Django==1.5.8
-  - DJANGO_SPEC=Django==1.6.5
+  - DJANGO_SPEC=Django==1.5.10
+  - DJANGO_SPEC=Django==1.6.7
+  - DJANGO_SPEC=Django==1.7
   - DJANGO_SPEC=https://github.com/django/django/zipball/master\#egg\Django
 
 install:
