@@ -12,6 +12,11 @@ generic implementation of the technique described there, targeting
 Django 1.5 and later. A `follow-up blog post`_ provides additional
 context.
 
+Note that I **do not** advocate the use of nested Formsets: in every case
+I've considered them, they've led to usability issues and overly
+complex view code. This repository was created as an exercise in test
+driven development and abstraction. Your mileage may vary.
+
 Installing
 ==========
 
