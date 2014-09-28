@@ -42,3 +42,20 @@ class ValidationTests(TestCase):
 
         # this is not valid -- unit is a required field for Tenants
         self.assertFalse(form.is_valid())
+
+    def test_formset_has_changed_reflects_nested_forms(self):
+
+        block = test_models.Block.objects.create()
+
+        form_data = get_form_data(self.formset_class(instance=block))
+        form_data.update({
+            'building_set-0-tenant_set-0-name': 'John Doe',
+        })
+
+        form = self.formset_class(
+            instance=block,
+            data=form_data,
+        )
+
+        # the nested element has changed, therefore the formset has
+        self.assertTrue(form.has_changed())
