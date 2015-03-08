@@ -4,10 +4,9 @@ python:
   - "3.4"
 
 env:
-  - DJANGO_SPEC=Django==1.5.10
-  - DJANGO_SPEC=Django==1.6.7
-  - DJANGO_SPEC=Django==1.7
-  - DJANGO_SPEC=https://github.com/django/django/zipball/master\#egg\Django
+  - DJANGO_SPEC=Django==1.6.10
+  - DJANGO_SPEC=Django==1.7.5
+  - DJANGO_SPEC=git+https://github.com/django/django.git
 
 install:
   - pip install --use-mirrors $DJANGO_SPEC

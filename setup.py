@@ -32,10 +32,9 @@ setup(name='django-nested-formset',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
-          'Django>=1.5',
+          'Django>=1.6',
       ],
       tests_require=[
-          'django-discover-runner',
           'rebar',
       ],
       test_suite='nested_formset.tests.run_tests',
