@@ -69,7 +69,8 @@ def nestedformset_factory(parent_model, model, nested_formset,
                           max_num=None, formfield_callback=None,
                           widgets=None, validate_max=False,
                           localized_fields=None, labels=None,
-                          help_texts=None, error_messages=None):
+                          help_texts=None, error_messages=None,
+                          min_num=None, validate_min=None):
     kwargs = {
         'form': form,
         'formfield_callback': formfield_callback,
@@ -97,7 +98,13 @@ def nestedformset_factory(parent_model, model, nested_formset,
                 field.name
                 for field in model._meta.local_fields
             ]
-
+        
+        if django.VERSION >= (1, 7):
+            kwargs.update({
+                'min_num': min_num,
+                'validate_min': validate_min,
+            })
+            
     NestedFormSet = inlineformset_factory(
         parent_model,
         model,
