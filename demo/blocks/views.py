@@ -14,19 +14,24 @@ from blocks import models
 class ListBlocksView(ListView):
 
     model = models.Block
+    fields = '__all__'
 
 
 class CreateBlockView(CreateView):
+    
     model = models.Block
-
+    fields = '__all__'
+    
     def get_success_url(self):
 
         return reverse('blocks-list')
 
 
 class EditBuildingsView(UpdateView):
+    
     model = models.Block
-
+    fields = '__all__'
+    
     def get_template_names(self):
 
         return ['blocks/building_form.html']
@@ -38,7 +43,8 @@ class EditBuildingsView(UpdateView):
             models.Building,
             nested_formset=inlineformset_factory(
                 models.Building,
-                models.Tenant
+                models.Tenant,
+                fields = '__all__'
             )
         )
 
