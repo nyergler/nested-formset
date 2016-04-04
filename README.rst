@@ -9,15 +9,13 @@ Formsets_ are a Django abstraction that make it easier to manage
 multiple instances of a single Form_ on a page. In 2009 I wrote a
 `blog post`_ about using nesting formsets using Django 1.1. This is a
 generic implementation of the technique described there, targeting
-Django 1.6 and later. A `follow-up blog post`_ provides additional
+Django 1.8 and later. A `follow-up blog post`_ provides additional
 context.
 
-Note that I **do not** advocate the use of nested Formsets: in every case
+**I do not advocate the use of nested Formsets.** In every case
 I've considered them, they've led to usability issues and overly
 complex view code. This repository was created as an exercise in test
-driven development and abstraction.
-
-Your mileage may vary.
+driven development and abstraction. Your mileage may vary.
 
 Installing
 ==========
