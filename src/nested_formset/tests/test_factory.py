@@ -1,5 +1,6 @@
-from unittest import TestCase
+from unittest import TestCase, skipIf
 
+import django
 from django.forms.models import BaseInlineFormSet, inlineformset_factory
 from nested_formset.tests import models as test_models
 
@@ -60,3 +61,61 @@ class FactoryTests(TestCase):
             tuple(nested_formset.form.base_fields.keys()),
             ('block',),
         )
+        
+    def test_fk_name_for_factory(self):
+        
+        fk_name = 'block'
+        # Should pass because fk_name is valid
+        nested_formset = nestedformset_factory(
+            test_models.Block,
+            test_models.Building,
+            nested_formset=self.child_formset,
+            fk_name='block'
+        )()
+        # Fails because address is not fk 
+        with self.assertRaises(ValueError):
+            nested_formset = nestedformset_factory(
+                test_models.Block,
+                test_models.Building,
+                nested_formset=self.child_formset,
+                fk_name='address'
+            )()
+        
+    def test_min_num_for_factory(self):
+        
+        num = 3
+        nested_formset = nestedformset_factory(
+            test_models.Block,
+            test_models.Building,
+            nested_formset=self.child_formset,
+            min_num=num
+        )
+        
+        if django.VERSION >= (1, 7):
+            self.assertEqual(
+                num,
+                nested_formset.min_num
+            )
+        else:
+            with self.assertRaises(AttributeError):
+                nested_formset.min_num
+        
+    def test_validate_min_for_factory(self):
+        # Default is False
+        validate_min = True
+        nested_formset = nestedformset_factory(
+            test_models.Block,
+            test_models.Building,
+            nested_formset=self.child_formset,
+            validate_min=validate_min
+        )
+        
+        if django.VERSION >= (1,7 ):
+            self.assertEqual(
+                validate_min,
+                nested_formset.validate_min
+            )
+        else:
+            with self.assertRaises(AttributeError):
+                nested_formset.validate_min
+        
