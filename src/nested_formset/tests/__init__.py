@@ -13,9 +13,7 @@ def setup():
     os.environ['DJANGO_SETTINGS_MODULE'] = 'nested_formset.test_settings'
 
     import django
-    if django.VERSION >= (1, 7):
-        # initialize the app regsitry
-        django.setup()
+    django.setup()
 
 
 def run_tests():
