@@ -1,4 +1,4 @@
-from unittest import TestCase, skipIf
+from unittest import TestCase
 
 import django
 from django.forms.models import BaseInlineFormSet, inlineformset_factory
@@ -90,15 +90,12 @@ class FactoryTests(TestCase):
             nested_formset=self.child_formset,
             min_num=num
         )
-        
-        if django.VERSION >= (1, 7):
-            self.assertEqual(
-                num,
-                nested_formset.min_num
-            )
-        else:
-            with self.assertRaises(AttributeError):
-                nested_formset.min_num
+
+        self.assertEqual(
+            num,
+            nested_formset.min_num
+        )
+
         
     def test_validate_min_for_factory(self):
         # Default is False
@@ -110,12 +107,8 @@ class FactoryTests(TestCase):
             validate_min=validate_min
         )
         
-        if django.VERSION >= (1,7 ):
-            self.assertEqual(
-                validate_min,
-                nested_formset.validate_min
-            )
-        else:
-            with self.assertRaises(AttributeError):
-                nested_formset.validate_min
+        self.assertEqual(
+            validate_min,
+            nested_formset.validate_min
+        )
         
