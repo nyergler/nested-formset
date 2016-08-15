@@ -10,3 +10,5 @@
 /demo/blocks.db
 /.tox/
 /build/
+/.eggs/
+pip-selfcheck.json
