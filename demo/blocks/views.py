@@ -18,20 +18,20 @@ class ListBlocksView(ListView):
 
 
 class CreateBlockView(CreateView):
-    
+
     model = models.Block
     fields = '__all__'
-    
+
     def get_success_url(self):
 
         return reverse('blocks-list')
 
 
 class EditBuildingsView(UpdateView):
-    
+
     model = models.Block
     fields = '__all__'
-    
+
     def get_template_names(self):
 
         return ['blocks/building_form.html']
