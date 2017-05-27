@@ -17,7 +17,7 @@ setup(name='django-nested-formset',
       long_description=README + '\n\n' + NEWS,
       classifiers=[
           'License :: OSI Approved :: BSD License',
-          'Development Status :: 4 - Beta',
+          'Development Status :: 5 - Production/Stable',
           'Framework :: Django',
           'Operating System :: OS Independent',
           'Programming Language :: Python :: 2.7',
