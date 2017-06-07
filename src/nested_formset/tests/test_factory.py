@@ -61,9 +61,9 @@ class FactoryTests(TestCase):
             tuple(nested_formset.form.base_fields.keys()),
             ('block',),
         )
-        
+
     def test_fk_name_for_factory(self):
-        
+
         fk_name = 'block'
         # Should pass because fk_name is valid
         nested_formset = nestedformset_factory(
@@ -72,7 +72,7 @@ class FactoryTests(TestCase):
             nested_formset=self.child_formset,
             fk_name='block'
         )()
-        # Fails because address is not fk 
+        # Fails because address is not fk
         with self.assertRaises(ValueError):
             nested_formset = nestedformset_factory(
                 test_models.Block,
@@ -80,9 +80,9 @@ class FactoryTests(TestCase):
                 nested_formset=self.child_formset,
                 fk_name='address'
             )()
-        
+
     def test_min_num_for_factory(self):
-        
+
         num = 3
         nested_formset = nestedformset_factory(
             test_models.Block,
@@ -96,7 +96,7 @@ class FactoryTests(TestCase):
             nested_formset.min_num
         )
 
-        
+
     def test_validate_min_for_factory(self):
         # Default is False
         validate_min = True
@@ -106,9 +106,8 @@ class FactoryTests(TestCase):
             nested_formset=self.child_formset,
             validate_min=validate_min
         )
-        
+
         self.assertEqual(
             validate_min,
             nested_formset.validate_min
         )
-        
