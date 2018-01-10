@@ -4,7 +4,8 @@ News
 Unreleased
 ----------
 
-* Drop support for Django 1.6, 1.7
+* Drop support for Django before 1.11
+* Update demo application for 1.11
 
 0.1.4
 -----

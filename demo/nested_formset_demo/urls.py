@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import url
 
 from blocks import views
 
@@ -6,7 +6,7 @@ from blocks import views
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Examples:
     # url(r'^$', 'nested_formset_demo.views.home', name='home'),
     # url(r'^nested_formset_demo/', include('nested_formset_demo.foo.urls')),
@@ -21,4 +21,4 @@ urlpatterns = patterns('',
     url('^blocks/(?P<pk>\d+)/$', views.EditBuildingsView.as_view(),
         name='buildings-edit'),
 
-)
+]

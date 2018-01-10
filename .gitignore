@@ -12,3 +12,4 @@
 /build/
 /.eggs/
 pip-selfcheck.json
+/.python-version
